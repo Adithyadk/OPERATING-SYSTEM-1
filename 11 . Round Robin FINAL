@@ -114,7 +114,7 @@ void main()
         {
             time += tq;
             P[i].RT -= tq;
-            printf("| P%d ", P[i].ID);
+            printf("| P%d (%d) %d ", P[i].ID,tq,time);
             for (j = 0; j < n; j++)
             {
                 if (P[j].AT <= time && P[j].CT != 1 && i != j && isInQueue(j) != 1)
@@ -136,3 +136,4 @@ void main()
     printf("\nAverage Waiting time:%f\n", avgWT / n);
     printf("\nAverage Turnaround time:%f\n", avgWT / n);
 }
+
