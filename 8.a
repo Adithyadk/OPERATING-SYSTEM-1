@@ -28,7 +28,7 @@ void main(int argc, char * argv[])
 void *sum(void *parm)
 {
   int i, n;
-   n = atoi(parm);//string to integer i.e., ASCII to int
+  n = atoi(parm);//string to integer i.e., ASCII to int
   printf("inside  sum thread\n");
 
   for(i=1; i<=n;i++)
