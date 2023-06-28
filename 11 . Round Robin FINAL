@@ -96,9 +96,9 @@ void main()
         {
 
             time += P[i].RT;
+            printf("| P%d (%d) %d ", P[i].ID,P[i].RT,time);
             P[i].RT = 0;
             P[i].CT = 1;
-            printf("| P%d ", P[i].ID);
             P[i].WT = time - P[i].AT - P[i].BT;
             P[i].TT = time - P[i].AT;
             P[i].ntt = ((float)P[i].TT / P[i].BT);
@@ -136,4 +136,5 @@ void main()
     printf("\nAverage Waiting time:%f\n", avgWT / n);
     printf("\nAverage Turnaround time:%f\n", avgWT / n);
 }
+
 
