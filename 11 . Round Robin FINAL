@@ -7,18 +7,15 @@ the process structure.
 // Round Robin 28/5/23    //FINAL
 
 #include <stdio.h>
-
 struct Process
 {
     int ID, AT, BT, WT, TT, RT, CT;
     float ntt;
 }
-
 P[10];
 int n;
 int q[10]; // queue
 int front = -1, rear = -1;
-
 void enqueue(int i)
 {
     if (rear == 10)
@@ -28,17 +25,16 @@ void enqueue(int i)
     if (front == -1)
         front = 0;
 }
-
 int dequeue()
 {
-    if (front == -1)
-        printf("underflow");
-    int temP = q[front];
-    if (front == rear)
-        front = rear = -1;
-    else
-        front++;
-    return temP;
+    if (front != -1){
+        int temP = q[front];
+        if (front == rear)
+            front = rear = -1;
+        else
+            front++;
+        return temP;  
+    }
 }
 int isInQueue(int i)
 {
@@ -65,10 +61,9 @@ void sortByArrival()
             }
         }
 }
-
 void main()
 {
-    int i, j, time = 0, sum_BT = 0, tq;
+    int i, j, time = 0, sum_BT = 0, tq,temp1=0,flag=0;
     float avgWT = 0,avgTT=0;
     printf("Enter no of Processes:");
     scanf("%d", &n);
@@ -81,17 +76,18 @@ void main()
         P[i].CT = 0;
         sum_BT += P[i].BT;
     }
-
     printf("\nEnter the time quantum:");
     scanf("%d", &tq);
-
     sortByArrival();
     enqueue(0);
     printf("Process execution order: ");
+    if(P[0].AT>0){
+        flag=1;
+        printf("| IDLE till %d\t",P[0].AT);  
+    }
     for (time = P[0].AT; time < sum_BT;)
     {
         i = dequeue();
-
         if (P[i].RT <= tq)
         {
 
@@ -104,7 +100,17 @@ void main()
             P[i].ntt = ((float)P[i].TT / P[i].BT);
             for (j = 0; j < n; j++)
             {
-                if (P[j].AT <= time && P[j].CT != 1 && isInQueue(j) != 1)
+                if(P[j].AT>time && P[j-1].CT==1){
+                    printf("| IDLE till %d\t",P[j].AT);
+                    if(flag==1)
+                    {   flag=0;
+                        sum_BT+=P[j].AT-time+P[0].AT;
+                    }
+                    else sum_BT+=P[j].AT-time;
+                    time=P[j].AT;
+                    enqueue(j);
+                }
+                else if (P[j].AT <= time && P[j].CT != 1 && isInQueue(j) != 1)
                 {
                     enqueue(j);
                 }
@@ -125,7 +131,6 @@ void main()
             enqueue(i);
         }
     }
-
     printf("\nID\tAT\tBT\tTT\tWT\t Normalized TT");
     for (i = 0; i < n; i++)
     {
