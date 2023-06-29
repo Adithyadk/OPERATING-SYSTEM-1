@@ -134,7 +134,7 @@ void main()
         printf("\n%d\t%d\t%d\t%d\t%d\t%f",P[i].ID,P[i].AT,P[i].BT,P[i].TT,P[i].WT,P[i].ntt);
     }
     printf("\nAverage Waiting time:%f\n", avgWT / n);
-    printf("\nAverage Turnaround time:%f\n", avgWT / n);
+    printf("\nAverage Turnaround time:%f\n", avgTT / n);
 }
 
 
