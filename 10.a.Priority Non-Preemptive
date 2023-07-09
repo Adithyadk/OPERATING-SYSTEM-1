@@ -1,11 +1,11 @@
 /*
-Implement the following CPU scheduling algorithms by defining the process 
+Implement the following CPU scheduling algorithms by defining the process
 structure:
 a. Priority
 */
 
-//Priority Non-Preemptive   //28/6/2023    //Final     
-    
+//Priority Non-Preemptive   //28/6/2023    //Final    
+   
 #include <stdio.h>
 struct process
 {
@@ -20,6 +20,7 @@ void main()
     scanf("%d", &n);
     for (i = 0; i < n; i++)
     {
+        P[i].CT=0;
         P[i].ID = i + 1;
         printf("Enter AT for process %d :", i + 1);
         scanf("%d", &P[i].AT);
@@ -31,6 +32,7 @@ void main()
     }
     int MIN_IND, MIN_PRI, COMP = 0, CUR_TIME = 0,temp=0;
     printf("\nGantt Chart:\n");
+    if(P[0].AT>0) printf("| IDLE till %d",P[0].AT);
     while (COMP != n)
     {
         MIN_IND = -1;
@@ -56,9 +58,9 @@ void main()
             total_wt += P[MIN_IND].WT;
             P[MIN_IND].IsCOMP = 1;
             COMP++;
-            if(P[MIN_IND].AT>P[temp].CT) 
+            if(P[MIN_IND].AT>P[temp].CT)
             {
-                printf("| IDLE till %d",P[MIN_IND].AT-P[temp].CT);
+                printf("| IDLE till %d",P[MIN_IND].AT);
             }
             printf("| P%d(%d) %d", P[MIN_IND].ID, P[MIN_IND].BT, CUR_TIME);
         }
@@ -70,5 +72,3 @@ void main()
     printf("AVG TAT : %.3f\n", total_tat / n);
     printf("AVG WT : %.3f\n", total_wt / n);
 }
-
-
